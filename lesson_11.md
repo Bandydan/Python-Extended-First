@@ -84,8 +84,10 @@ You are now connected to database "test" as user "bandy".
 
 create table cars(id serial, brand text not null);
 CREATE TABLE
-
 ```
+
+[Типы данных в psql](https://www.tutorialspoint.com/postgresql/postgresql_data_types.htm)
+
   
 Посмотрим на результирующую таблицу:
 
@@ -158,6 +160,6 @@ ALTER TABLE
 
 ### Полезные cсылки
 
-[Домашнее задание](11_homework.md)
+[Домашнее задание](hw11.md)
 
 [Следующий Урок](12_querries.md)
