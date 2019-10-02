@@ -198,4 +198,6 @@ print("At the end we have:\n\
 
 [Домашка](hw01.md)
 
+[Правила](rules.md)
+
 [Следующий урок](lesson02.py)
