@@ -368,13 +368,24 @@ test=# select * from word order by 3, 2 limit 3 offset 3;
 ## Полезные ссылки
 
 **Типы данных:**
+
+
 [типы данных](https://www.tutorialspoint.com/postgresql/postgresql_data_types.htm)
+
 [identity column](http://www.postgresqltutorial.com/postgresql-identity-column/)
+
 [serial column](http://www.postgresqltutorial.com/postgresql-serial/)
 **Прочее:**
+
+
 [Метакоманды типа `\q`:](https://www.postgresql.org/docs/current/app-psql.html#APP-PSQL-META-COMMANDS)
+
+
 [Аггрегатные функции](https://metanit.com/sql/postgresql/4.5.php)
+
+
 [FETCH](http://www.postgresqltutorial.com/postgresql-fetch/)
 
 [Домашка](hw13.md)
+
 [Следующий урок](lesson14.md)
