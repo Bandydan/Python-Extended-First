@@ -265,4 +265,4 @@ print(squared_numbers)
 
 [Домашка](hw05.md)
 
-[Следующий урок](lesson06.py)
+[Следующий урок](lesson06.md)
