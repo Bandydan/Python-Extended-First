@@ -206,7 +206,7 @@ from books right join genres on (genres.id = books.genre_id);
 ```sql
 select title, genre
 from books
-full join genres using(genre_id);
+full join genres genres on (genres.id = books.genre_id);
 
 
        title        | genre
