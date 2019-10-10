@@ -1,4 +1,4 @@
-# 14. JOINs, отношения, практика запросов
+# 14. JOINS, отношения, практика запросов
 
 ## Отношения между таблицами
 
@@ -19,10 +19,10 @@
 
 ![](https://zametkinapolyah.ru/wp-content/uploads/2016/05/%D0%9C%D0%BD%D0%BE%D0%B3%D0%B8%D0%B5-%D0%BA%D0%BE-%D0%BC%D0%BD%D0%BE%D0%B3%D0%B8%D0%BC.png)
 
-## Объединения (JOINs)
+## Объединения (JOINS)
 
 
-![JOINs](http://www.postgresqltutorial.com/wp-content/uploads/2018/12/PostgreSQL-JOINs.png)
+![JOINS](http://www.postgresqltutorial.com/wp-content/uploads/2018/12/PostgreSQL-Joins.png)
 Запросы к одной таблице довольно редки. Чаще всего запросы к базам данных пишуться с целью получить информацию из нескольких таблиц, информация из которых объединяется по определенным условиям.
 
 Создадим таблицы авторов, книг, жанров и таблицу связей для авторов и книг (многие ко многим):
