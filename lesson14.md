@@ -1,4 +1,4 @@
-# 14. Joins, отношения, практика запросов
+# 14. JOINs, отношения, практика запросов
 
 ## Отношения между таблицами
 
@@ -19,42 +19,42 @@
 
 ![](https://zametkinapolyah.ru/wp-content/uploads/2016/05/%D0%9C%D0%BD%D0%BE%D0%B3%D0%B8%D0%B5-%D0%BA%D0%BE-%D0%BC%D0%BD%D0%BE%D0%B3%D0%B8%D0%BC.png)
 
-## Объединения (Joins)
+## Объединения (JOINs)
 
 
-![joins](http://www.postgresqltutorial.com/wp-content/uploads/2018/12/PostgreSQL-Joins.png)
+![JOINs](http://www.postgresqltutorial.com/wp-content/uploads/2018/12/PostgreSQL-JOINs.png)
 Запросы к одной таблице довольно редки. Чаще всего запросы к базам данных пишуться с целью получить информацию из нескольких таблиц, информация из которых объединяется по определенным условиям.
 
 Создадим таблицы авторов, книг, жанров и таблицу связей для авторов и книг (многие ко многим):
 
 ```sql
 
-create table authors (
-	id serial primary key,
-	name varchar(200) not null default 'lore',
-	year date not null default '1970-01-01'
+CREATE TABLE authors (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(200) NOT NULL DEFAULT 'lore',
+	year DATE NOT NULL DEFAULT '1970-01-01'
 );
 
 CREATE TABLE
 
-create table books (
-	id serial primary key,
-	title varchar(200) not null default 'noname',
-	genre_id int not null default 0
+CREATE TABLE books (
+	id SERIAL PRIMARY KEY,
+	title VARCHAR(200) NOT NULL DEFAULT 'noname',
+	genre_id INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE
 
-create table genres (
-	id serial primary key,
-	genre varchar(100) not null default 'unknown'
+CREATE TABLE genres (
+	id SERIAL PRIMARY KEY,
+	genre VARCHAR(100) NOT NULL DEFAULT 'unknown'
 );
 
 CREATE TABLE
 
-create table authors_books (
-	author_id int not null default 0,
-	book_id int not null default 0
+CREATE TABLE authors_books (
+	author_id INT NOT NULL DEFAULT 0,
+	book_id INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE
@@ -94,9 +94,9 @@ INSERT INTO authors_books (author_id, book_id) VALUES
 Данные готовы, теперь можно изучать объединения таблиц. Начнем мы с объединения двух таблиц в одном запросе:
 
 ```sql
-select title, genre
-from books
-inner join genres on (genres.id = books.genre_id);
+SELECT title, genre
+FROM books
+INNER JOIN genres ON (genres.id = books.genre_id);
 
        title        | genre
 --------------------+-------
@@ -112,9 +112,9 @@ inner join genres on (genres.id = books.genre_id);
 Так же в результат не попадает жанр horror, так как нет ни единой книги с таким жанром.
 
 ```sql
-select title, genre
-from books
-left join genres on (genres.id = books.genre_id);
+SELECT title, genre
+FROM books
+LEFT JOIN genres ON (genres.id = books.genre_id);
 
        title        | genre
 --------------------+-------
@@ -132,12 +132,12 @@ left join genres on (genres.id = books.genre_id);
 Чтобы определить, каким книгам не найдены в соответствие жанры, можно выполнить запрос с подзапросом:
 
 ```sql
-select title
-from books
-where not exists (
-	select * 
-	from genres 
-	where books.genre_id = genres.id
+SELECT title
+FROM books
+WHERE NOT EXISTS (
+	SELECT * 
+	FROM genres 
+	WHERE books.genre_id = genres.id
 );
 
  title
@@ -149,10 +149,10 @@ where not exists (
 Этот путь считается более правильным, чем классический:
 
 ```sql
-select title, genre 
-from books 
-left join genres using(genre_id)
-where genre is null;
+SELECT title, genre 
+FROM books 
+LEFT JOIN genres ON (genres.id = books.genre_id)
+WHERE genre IS NULL;
 
 
  title
@@ -165,9 +165,9 @@ where genre is null;
 **`RIGHT JOIN`** поступает аналогичным образом с правой таблицей: выводит все записи из нее, добавляя записи из левой. Где соответствия не находится, оставляет в столбцах левой таблицы пустоту.
 
 ```sql
-select title, genre
-from books
-right join genres on (genres.id = books.genre_id);
+SELECT title, genre
+FROM books
+RIGHT JOIN genres ON (genres.id = books.genre_id);
 
        title        | genre
 --------------------+--------
@@ -182,12 +182,12 @@ right join genres on (genres.id = books.genre_id);
 
 
 ```sql
-select title, genre 
-from books 
-left join genres on (genres.id = books.genre_id) 
-union 
-select title, genre 
-from books right join genres on (genres.id = books.genre_id);
+SELECT title, genre 
+FROM books 
+LEFT JOIN genres ON (genres.id = books.genre_id) 
+UNION 
+SELECT title, genre 
+FROM books RIGHT JOIN genres ON (genres.id = books.genre_id);
 
 
        title        | genre
@@ -204,9 +204,9 @@ from books right join genres on (genres.id = books.genre_id);
 Аналогичного результата можно добиться и специальным видом объединений - **`FULL JOIN`**:
 
 ```sql
-select title, genre
-from books
-full join genres genres on (genres.id = books.genre_id);
+SELECT title, genre
+FROM books
+FULL JOIN genres ON (genres.id = books.genre_id);
 
 
        title        | genre
@@ -223,13 +223,15 @@ full join genres genres on (genres.id = books.genre_id);
 Если поля для связи называются одинаково, например, поле id в таблице genres называется genre_id, запрос можно немного упростить. Для демонстрации переименуем поле и выполним этот запрос:
 
 ```sql
-alter table genres rename column id to genre_id;
+ALTER TABLE genres RENAME COLUMN id TO genre_id;
 
 ALTER TABLE
 
-select title, genre
-from books 
-right join genres using(genre_id);
+SELECT title, genre
+FROM books 
+RIGHT JOIN genres USING(genre_id);
+
+
        title        | genre
 --------------------+--------
  Мастер и Маргарита | novel
